@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <script type="text/javascript">
+        function CheckData() {
+            var ans;
+            // Подтверждение отправки формы
+            ans = confirm("Вы уверены, что хотите отправить введенные данные?");
+            if (!ans) return false;  // Если пользователь отменяет, данные не отправляются
+
+            // Проверка обязательных полей
+            if (document.getElementById("uname").value.length == 0) {
+                alert("Пожалуйста, введите имя пользователя!");
+                return false;
+            }
+            if (document.getElementById("org").value.length == 0) {
+                alert("Пожалуйста, введите название организации!");
+                return false;
+            }
+            if (document.getElementById("phone").value.length == 0) {
+                alert("Пожалуйста, введите номер телефона!");
+                return false;
+            }
+
+            // Регулярное выражение для проверки email (обновленная версия)
+            var validEMail, pattnEmail;
+            pattnEmail = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
+            validEMail = pattnEmail.test(document.getElementById("email").value);
+            if (!validEMail) {
+                alert("Введите корректный email!");
+                return false;
+            }
+
+            // Регулярное выражение для проверки телефона (обновленная версия)
+            var validPhone, phonePattern;
+            phonePattern = new RegExp("^\\+7\\s?\\(?\\d{3}\\)?\\s?\\d{3}\\s?\\d{2}\\s?\\d{2}$");
+            validPhone = phonePattern.test(document.getElementById("phone").value);
+            if (!validPhone) {
+                alert("Введите корректный номер телефона в формате: +7 123 456 78 90");
+                return false;
+            }
+
+            // Если все проверки прошли, данные отправляются
+            alert("Форма успешно отправлена!");
+            return true;
+        }
+    </script>
+</head>
+<body align="center">
+    <h2>Регистрация</h2>
+    <form onsubmit="return CheckData()">
+        <label for="uname">* Имя:</label><br>
+        <input type="text" id="uname" name="uname"><br>
+
+        <label for="org">* Организация (компания):</label><br>
+        <input type="text" id="org" name="org"><br>
+
+        <label for="phone">* Телефон:</label><br>
+        <input type="text" id="phone" name="phone"><br>
+
+        <label for="email">Адрес электронной почты:</label><br>
+        <input type="text" id="email" name="email"><br><br>
+
+        <input type="submit" value="Отправить">
+        <input type="reset" value="Очистить">
+    </form>
+    <p>* Поля обязательные для заполнения</p>
+</body>
+</html>
